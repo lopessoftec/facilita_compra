@@ -5,6 +5,7 @@
         }
     },
     "require": {
-        "erandir/plug-route": "^3.7"
+        "erandir/plug-route": "^3.7",
+        "twig/twig": "^3.0"
     }
 }

@@ -11,12 +11,16 @@ class User
     private $request;
     private $response;
     private $service;
+    private $twig;
 
     public function __construct(Request $request, Response $response, UserProvider $userProvider)
     {
         $this->request = $request;
         $this->response = $response;
         $this->service = $userProvider->getInstance();
+
+        $loader = new \Twig\Loader\FilesystemLoader('../src/View');
+        $this->twig = new \Twig\Environment($loader);
     }
 
     public function index()
@@ -24,6 +28,11 @@ class User
         $data = $this->service->findAll();
 
         $this->response($data, 200);
+    }
+
+    public function createView()
+    {
+        echo $this->twig->render('App.php', ['rota-form' => '/add-user', 'view' => 'User/user-create.php']);
     }
 
     public function create()

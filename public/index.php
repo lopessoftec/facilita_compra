@@ -12,7 +12,9 @@ $route->get('/', 'SRC\\Application\\Pointers\\User@index');
 
 $route->get('/{id:\d+}', 'SRC\\Application\\Pointers\\User@find');
 
-$route->post('/', 'SRC\\Application\\Pointers\\User@create');
+$route->get('/add-user', 'SRC\\Application\\Pointers\\User@createView');
+
+$route->post('/add-user', 'SRC\\Application\\Pointers\\User@create');
 
 $route->put('/{id:\d+}', 'SRC\\Application\\Pointers\\User@update');
 
