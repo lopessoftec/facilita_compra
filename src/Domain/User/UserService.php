@@ -15,6 +15,11 @@ class UserService
         return $this->repository->findAll();
     }
 
+    public function checksAuthentication($email)
+    {
+        return $this->repository->checksAuthentication($email);
+    }
+
     public function create($name, $email)
     {
         return $this->repository->create($name, $email);

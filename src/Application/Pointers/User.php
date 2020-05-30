@@ -25,14 +25,69 @@ class User
 
     public function index()
     {
-        $data = $this->service->findAll();
 
-        $this->response($data, 200);
+        echo $this->twig->render('app.php', ['rota-form' => '/autenticar', 'view' => 'Access/login.php']);
     }
+
+    public function autenticar()
+    {
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+        if ($email == false) {
+            $this->request->redirect('/');
+        }
+        if ($password == false) {
+            $this->request->redirect('/');
+        }
+
+        //verificar se tem usuario com esse email e se tiver verificar se senha é igual
+        $checksAuthentication = $this->service->checksAuthentication($email, $password);
+
+        if (password_verify($password, $checksAuthentication->getPassword())) {
+
+            session_start();
+            $_SESSION["autentication"] = true;
+
+            $this->request->redirect('/home');
+            exit();
+        }
+
+        $this->request->redirect('/');
+    }
+
+    public function register()
+    {
+        $password = password_hash('123456', PASSWORD_ARGON2I);
+
+        echo $this->twig->render('app.php', ['rota-form' => '/login', 'view' => 'Access/login.php']);
+    }
+
+    public function logout()
+    {
+        session_start();
+        unset($_SESSION["autentication"]);
+
+        $this->request->redirect('/');
+    }
+
+    public function home()
+    {
+        $this->verificaPermissao();
+        echo $this->twig->render('app.php', ['rota-form' => '/login', 'view' => 'Extra/dashboard.php', 'autetication' => $_SESSION["autentication"]]);
+    }
+
+    // public function index()
+    // {
+    //     $data = $this->service->findAll();
+
+    //     $this->response($data, 200);
+    // }
 
     public function createView()
     {
-        echo $this->twig->render('App.php', ['rota-form' => '/add-user', 'view' => 'User/user-create.php']);
+        $this->verificaPermissao();
+        echo $this->twig->render('app.php', ['rota-form' => '/add-user', 'view' => 'User/user-create.php']);
     }
 
     public function create()
@@ -72,5 +127,16 @@ class User
             ->setStatusCode($code)
             ->response()
             ->json($data);
+    }
+
+    public function verificaPermissao()
+    {
+        session_start();
+
+        if ($_SESSION["autentication"]) {
+            return true;
+        }
+
+        $this->request->redirect('/');
     }
 }

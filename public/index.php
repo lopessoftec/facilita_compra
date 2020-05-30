@@ -10,6 +10,14 @@ $route = new PlugRoute(new RouteContainer(), RequestCreator::create());
 
 $route->get('/', 'SRC\\Application\\Pointers\\User@index');
 
+$route->post('/autenticar', 'SRC\\Application\\Pointers\\User@autenticar');
+
+$route->get('/home', 'SRC\\Application\\Pointers\\User@home');
+
+$route->get('/close', 'SRC\\Application\\Pointers\\User@logout');
+
+// $route->get('/', 'SRC\\Application\\Pointers\\User@index');
+
 $route->get('/{id:\d+}', 'SRC\\Application\\Pointers\\User@find');
 
 $route->get('/add-user', 'SRC\\Application\\Pointers\\User@createView');

@@ -8,6 +8,8 @@ interface UserRepository
 
     public function find($id);
 
+    public function checksAuthentication($email);
+
     public function create($name, $email);
 
     public function delete($id);

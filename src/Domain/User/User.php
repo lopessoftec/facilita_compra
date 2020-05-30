@@ -42,6 +42,16 @@ class User
         $this->email = $email;
     }
 
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
     public function getCreatedAt()
     {
         return $this->createdAt;
