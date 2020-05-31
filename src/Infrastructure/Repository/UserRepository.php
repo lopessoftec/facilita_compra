@@ -39,12 +39,27 @@ class UserRepository implements \SRC\Domain\User\UserRepository
 
     public function checksAuthentication($email)
     {
-        $stmt = $this->connection->prepare("SELECT email, password FROM user WHERE email = ?");
+        $stmt = $this->connection->prepare("SELECT id, email, password FROM user WHERE email = ?");
         $stmt->bindValue(1, $email);
 
         $stmt->execute();
 
         return $stmt->fetchObject(User::class);
+    }
+
+    public function changePassword($password, $id)
+    {
+        $stmt = $this->connection->prepare("UPDATE user SET password = ? WHERE id = ?");
+        $stmt->bindValue(1, $password);
+        $stmt->bindValue(2, $id);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            return 'success';
+        }
+
+        return 'error';
     }
 
     public function create($name, $email, $password)
@@ -56,11 +71,10 @@ class UserRepository implements \SRC\Domain\User\UserRepository
 
         $stmt->execute();
 
-        //var_dump($this->connection->lastInsertId());
         //var_dump($stmt->debugDumpParams());
 
         if ($stmt->rowCount() > 0) {
-            return 'success';
+            return ['msg' => 'success', 'id' => $this->connection->lastInsertId()];
         }
 
         return 'error';

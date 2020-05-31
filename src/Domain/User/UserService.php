@@ -20,6 +20,11 @@ class UserService
         return $this->repository->checksAuthentication($email);
     }
 
+    public function changePassword($password, $id)
+    {
+        return $this->repository->changePassword($password, $id);
+    }
+
     public function create($name, $email, $password)
     {
         return $this->repository->create($name, $email, $password);

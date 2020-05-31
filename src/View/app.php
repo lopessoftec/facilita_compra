@@ -27,6 +27,9 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="">
+                                Fornecedores
+                            </a>
+                            <a class="dropdown-item" href="">
                                 Produtos
                             </a>
                             <a class="dropdown-item" href="">
@@ -55,6 +58,9 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/close">
                                 Sair
+                            </a>
+                            <a class="dropdown-item" href="/change-password-view">
+                                Alterar senha
                             </a>
                         </div>
                     </li>

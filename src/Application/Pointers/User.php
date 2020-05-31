@@ -48,6 +48,7 @@ class User
 
             session_start();
             $_SESSION["autentication"] = true;
+            $_SESSION["id"] = $checksAuthentication->getId();
 
             $this->request->redirect('/home');
             exit();
@@ -80,10 +81,46 @@ class User
         $password = password_hash($password, PASSWORD_ARGON2I);
 
         //insere no banco as informações
-        $this->service->create($name, $email, $password);
+        $create = $this->service->create($name, $email, $password);
 
         session_start();
         $_SESSION["autentication"] = true;
+        $_SESSION["id"] = $create['id'];
+
+        $this->request->redirect('/home');
+        exit();
+    }
+
+    public function changePasswordView()
+    {
+        $this->verificaPermissao();
+        echo $this->twig->render('app.php', ['rota-form' => '/add-user', 'view' => 'User/edit-password.php', 'autetication' => $_SESSION["autentication"]]);
+    }
+
+    public function changePassword()
+    {
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+        $confirm_password = filter_input(INPUT_POST, 'confirm_password', FILTER_SANITIZE_STRING);
+
+        if ($password == false) {
+            $this->request->redirect('/registerView');
+        }
+
+        if ($confirm_password == false) {
+            $this->request->redirect('/registerView');
+        }
+
+        if ($password != $confirm_password) {
+            $this->request->redirect('/registerView');
+        }
+
+        $password = password_hash($password, PASSWORD_ARGON2I);
+
+        //insere no banco as informações
+        session_start();
+        $id = $_SESSION["id"];
+
+        $this->service->changePassword($password, $id);
 
         $this->request->redirect('/home');
         exit();
@@ -92,7 +129,7 @@ class User
     public function logout()
     {
         session_start();
-        unset($_SESSION["autentication"]);
+        session_destroy();
 
         $this->request->redirect('/');
     }
@@ -100,6 +137,7 @@ class User
     public function home()
     {
         $this->verificaPermissao();
+
         echo $this->twig->render('app.php', ['rota-form' => '/login', 'view' => 'Extra/dashboard.php', 'autetication' => $_SESSION["autentication"]]);
     }
 

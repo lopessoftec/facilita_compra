@@ -10,6 +10,8 @@ interface UserRepository
 
     public function checksAuthentication($email);
 
+    public function changePassword($password, $id);
+
     public function create($name, $email, $password);
 
     public function delete($id);
