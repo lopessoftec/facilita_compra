@@ -17,7 +17,7 @@ session_start();
                     <input name="password" type="password" id="password" name="text" class="form-control" placeholder="Seu senha" autofocus="">
                 </div>
                 <button type="submit" class="btn btn-success btn-block">Entrar</button>
-                <a href="" class="btn btn-primary btn-block">Cadastrar</a>
+                <a href="/register-view" class="btn btn-primary btn-block">Cadastrar</a>
             </form>
         </div>
     </div>

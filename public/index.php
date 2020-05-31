@@ -14,6 +14,10 @@ $route->post('/autenticar', 'SRC\\Application\\Pointers\\User@autenticar');
 
 $route->get('/home', 'SRC\\Application\\Pointers\\User@home');
 
+$route->get('/register-view', 'SRC\\Application\\Pointers\\User@registerView');
+
+$route->post('/register', 'SRC\\Application\\Pointers\\User@register');
+
 $route->get('/close', 'SRC\\Application\\Pointers\\User@logout');
 
 // $route->get('/', 'SRC\\Application\\Pointers\\User@index');

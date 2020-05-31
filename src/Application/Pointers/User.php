@@ -56,11 +56,37 @@ class User
         $this->request->redirect('/');
     }
 
+    public function registerView()
+    {
+        echo $this->twig->render('app.php', ['rota-form' => '/login', 'view' => 'User/create.php']);
+    }
+
     public function register()
     {
-        $password = password_hash('123456', PASSWORD_ARGON2I);
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-        echo $this->twig->render('app.php', ['rota-form' => '/login', 'view' => 'Access/login.php']);
+        if ($name == false) {
+            $this->request->redirect('/registerView');
+        }
+        if ($email == false) {
+            $this->request->redirect('/registerView');
+        }
+        if ($password == false) {
+            $this->request->redirect('/registerView');
+        }
+
+        $password = password_hash($password, PASSWORD_ARGON2I);
+
+        //insere no banco as informações
+        $this->service->create($name, $email, $password);
+
+        session_start();
+        $_SESSION["autentication"] = true;
+
+        $this->request->redirect('/home');
+        exit();
     }
 
     public function logout()
@@ -90,13 +116,13 @@ class User
         echo $this->twig->render('app.php', ['rota-form' => '/add-user', 'view' => 'User/user-create.php']);
     }
 
-    public function create()
-    {
-        $name = $this->request->input('name');
-        $email = $this->request->input('email');
+    // public function create()
+    // {
+    //     $name = $this->request->input('name');
+    //     $email = $this->request->input('email');
 
-        return $this->service->create($name, $email);
-    }
+    //     return $this->service->create($name, $email);
+    // }
 
     public function update()
     {

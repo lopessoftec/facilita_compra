@@ -13,28 +13,54 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Facilita Compra</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                {% if autetication %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Configurações</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Cadastros</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/close">Sair</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-success text-white" href="#">Facilita</a>
-                </li>
-                {% endif %}
-            </ul>
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="">
+                FC
+            </a>
+            {% if autetication %}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Gerencial <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="">
+                                Produtos
+                            </a>
+                            <a class="dropdown-item" href="">
+                                Marcas
+                            </a>
+                            <a class="dropdown-item" href="">
+                                Embalagens
+                            </a>
+                        </div>
+                    </li>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-success text-white btn-sm" href="#">
+                                Iniciar
+                            </a>
+                        </li>
+                    </ul>
+                </ul>
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <span class="caret">Logout</span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/close">
+                                Sair
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
         </div>
     </nav>
     <div class="container">

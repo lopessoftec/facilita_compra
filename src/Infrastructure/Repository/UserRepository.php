@@ -47,11 +47,12 @@ class UserRepository implements \SRC\Domain\User\UserRepository
         return $stmt->fetchObject(User::class);
     }
 
-    public function create($name, $email)
+    public function create($name, $email, $password)
     {
-        $stmt = $this->connection->prepare("INSERT INTO user (name, email) VALUES (?, ?)");
+        $stmt = $this->connection->prepare("INSERT INTO user (name, email, password) VALUES (?, ?, ?)");
         $stmt->bindValue(1, $name);
         $stmt->bindValue(2, $email);
+        $stmt->bindValue(3, $password);
 
         $stmt->execute();
 

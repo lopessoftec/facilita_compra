@@ -20,9 +20,9 @@ class UserService
         return $this->repository->checksAuthentication($email);
     }
 
-    public function create($name, $email)
+    public function create($name, $email, $password)
     {
-        return $this->repository->create($name, $email);
+        return $this->repository->create($name, $email, $password);
     }
 
     public function update($name, $email, $id)
