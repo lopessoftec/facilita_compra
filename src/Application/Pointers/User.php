@@ -44,7 +44,7 @@ class User
         //verificar se tem usuario com esse email e se tiver verificar se senha é igual
         $checksAuthentication = $this->service->checksAuthentication($email, $password);
 
-        if (password_verify($password, $checksAuthentication->getPassword())) {
+        if ($checksAuthentication != false && password_verify($password, $checksAuthentication->getPassword())) {
 
             session_start();
             $_SESSION["autentication"] = true;

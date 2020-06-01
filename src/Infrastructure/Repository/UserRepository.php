@@ -16,7 +16,7 @@ class UserRepository implements \SRC\Domain\User\UserRepository
 
     public function findAll()
     {
-        $stmt = $this->connection->query("SELECT * FROM user WHERE deleted_at IS NULL");
+        $stmt = $this->connection->query("SELECT * FROM users WHERE deleted_at IS NULL");
         $stmt->execute();
 
         $stmt->setFetchMode(\PDO::FETCH_ASSOC);
@@ -26,7 +26,7 @@ class UserRepository implements \SRC\Domain\User\UserRepository
     public function find($id)
     {
         $stmt = $this->connection->prepare("SELECT id, name, email, deleted_at as deletedAt, updated_at as updatedAt, created_at as createdAt 
-                                            FROM user 
+                                            FROM users 
                                             WHERE deleted_at IS NULL AND id = ?");
         $stmt->bindValue(1, $id);
         $stmt->execute();
@@ -39,7 +39,7 @@ class UserRepository implements \SRC\Domain\User\UserRepository
 
     public function checksAuthentication($email)
     {
-        $stmt = $this->connection->prepare("SELECT id, email, password FROM user WHERE email = ?");
+        $stmt = $this->connection->prepare("SELECT id, email, password FROM users WHERE email = ?");
         $stmt->bindValue(1, $email);
 
         $stmt->execute();
@@ -49,7 +49,7 @@ class UserRepository implements \SRC\Domain\User\UserRepository
 
     public function changePassword($password, $id)
     {
-        $stmt = $this->connection->prepare("UPDATE user SET password = ? WHERE id = ?");
+        $stmt = $this->connection->prepare("UPDATE users SET password = ? WHERE id = ?");
         $stmt->bindValue(1, $password);
         $stmt->bindValue(2, $id);
 
@@ -64,7 +64,7 @@ class UserRepository implements \SRC\Domain\User\UserRepository
 
     public function create($name, $email, $password)
     {
-        $stmt = $this->connection->prepare("INSERT INTO user (name, email, password) VALUES (?, ?, ?)");
+        $stmt = $this->connection->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
         $stmt->bindValue(1, $name);
         $stmt->bindValue(2, $email);
         $stmt->bindValue(3, $password);
@@ -82,7 +82,7 @@ class UserRepository implements \SRC\Domain\User\UserRepository
 
     public function delete($id)
     {
-        $stmt = $this->connection->prepare("UPDATE user SET deleted_at = NOW() WHERE id = ?");
+        $stmt = $this->connection->prepare("UPDATE users SET deleted_at = NOW() WHERE id = ?");
         $stmt->bindValue(1, $id);
 
         $stmt->execute();
@@ -96,7 +96,7 @@ class UserRepository implements \SRC\Domain\User\UserRepository
 
     public function update($name, $email, $id)
     {
-        $stmt = $this->connection->query("UPDATE user SET updated_at = NOW(), name =?, email = ? WHERE id = ?");
+        $stmt = $this->connection->query("UPDATE users SET updated_at = NOW(), name =?, email = ? WHERE id = ?");
         $stmt->bindValue(1, $name);
         $stmt->bindValue(2, $email);
         $stmt->bindValue(3, $id);
