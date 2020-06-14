@@ -1,6 +1,6 @@
 <?php
 
-namespace SRC\Application\Pointers;
+namespace SRC\Application;
 
 use PlugRoute\Http\Request;
 use PlugRoute\Http\Response;

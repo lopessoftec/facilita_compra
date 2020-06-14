@@ -8,32 +8,37 @@ use \PlugRoute\Http\RequestCreator;
 
 $route = new PlugRoute(new RouteContainer(), RequestCreator::create());
 
-$route->get('/', 'SRC\\Application\\Pointers\\User@index');
+$route->get('/', 'SRC\\Application\\User@index');
 
-$route->post('/autenticar', 'SRC\\Application\\Pointers\\User@autenticar');
+$route->post('/autenticar', 'SRC\\Application\\User@autenticar');
 
-$route->get('/home', 'SRC\\Application\\Pointers\\User@home');
+$route->get('/home', 'SRC\\Application\\User@home');
 
-$route->get('/register-view', 'SRC\\Application\\Pointers\\User@registerView');
-$route->post('/register', 'SRC\\Application\\Pointers\\User@register');
+$route->get('/register-view', 'SRC\\Application\\User@registerView');
+$route->post('/register', 'SRC\\Application\\User@register');
 
-$route->get('/change-password-view', 'SRC\\Application\\Pointers\\User@changePasswordView');
-$route->post('/change-password', 'SRC\\Application\\Pointers\\User@changePassword');
+$route->get('/change-password-view', 'SRC\\Application\\User@changePasswordView');
+$route->post('/change-password', 'SRC\\Application\\User@changePassword');
+
+//supplier
+$route->get('/supplier-list-view', 'SRC\\Application\\Supplier@index');
+$route->get('/supplier-create-view', 'SRC\\Application\\Supplier@create');
+$route->get('/supplier-create', 'SRC\\Application\\Supplier@store');
 
 
-$route->get('/close', 'SRC\\Application\\Pointers\\User@logout');
+$route->get('/close', 'SRC\\Application\\User@logout');
 
-// $route->get('/', 'SRC\\Application\\Pointers\\User@index');
+// $route->get('/', 'SRC\\Application\\User@index');
 
-$route->get('/{id:\d+}', 'SRC\\Application\\Pointers\\User@find');
+$route->get('/{id:\d+}', 'SRC\\Application\\User@find');
 
-$route->get('/add-user', 'SRC\\Application\\Pointers\\User@createView');
+$route->get('/add-user', 'SRC\\Application\\User@createView');
 
-$route->post('/add-user', 'SRC\\Application\\Pointers\\User@create');
+$route->post('/add-user', 'SRC\\Application\\User@create');
 
-$route->put('/{id:\d+}', 'SRC\\Application\\Pointers\\User@update');
+$route->put('/{id:\d+}', 'SRC\\Application\\User@update');
 
-$route->delete('/{id:\d+}', 'SRC\\Application\\Pointers\\User@delete');
+$route->delete('/{id:\d+}', 'SRC\\Application\\User@delete');
 
 // $route->get('/', function () {
 //     echo 'basic route';

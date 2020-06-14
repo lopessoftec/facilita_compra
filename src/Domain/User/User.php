@@ -11,6 +11,8 @@ class User
 
     private $email;
 
+    private $password;
+
     private $createdAt;
 
     private $deletedAt;
